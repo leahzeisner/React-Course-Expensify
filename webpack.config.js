@@ -5,6 +5,7 @@ module.exports = (env) => {
     const CSSExtract = new MiniCssExtractPlugin({
         filename: 'styles.css'
     });
+    const isProduction = (env === 'production');
 
     return {
         entry: "./src/app.js",
@@ -37,7 +38,8 @@ module.exports = (env) => {
         plugins: [
             CSSExtract
         ],
-        devtool: "source-map",
+        devtool: isProduction ? 'source-map' : 'inline-cheap-module-source-map',
+        // devtool: "source-map",
         devServer: {
             contentBase: path.join(__dirname, "public"),
             historyApiFallback: true,
