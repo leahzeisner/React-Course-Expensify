@@ -1,9 +1,9 @@
 const path = require("path");
-const webpack = require("webpack");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = (env) => {
-    const isProduction = env === "production";
+    const isProduction = env === 'production';
+    console.log(isProduction)
     const CSSExtract = new MiniCssExtractPlugin({
         filename: 'styles.css'
     });
@@ -39,7 +39,7 @@ module.exports = (env) => {
         plugins: [
             CSSExtract
         ],
-        devtool: isProduction ? 'source-map' : 'inline-source-map',
+        devtool: "source-map",
         devServer: {
             contentBase: path.join(__dirname, "public"),
             historyApiFallback: true
