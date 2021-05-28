@@ -5,6 +5,7 @@ import {
     addExpense, 
     removeExpense, 
     editExpense, 
+    startEditExpense,
     setExpenses, 
     startSetExpenses,
     startRemoveExpense
@@ -24,6 +25,8 @@ beforeEach((done) => {
 
     database.ref('expenses').set(expensesData).then(() => done());
 });
+
+
 
 
 // Tests for removeExpense
@@ -58,6 +61,7 @@ test('should remove expenses from firebase', (done) => {
 
 
 
+
 // Tests for editExpense
 
 test('should set up the edit expense action object', () => {
@@ -71,6 +75,30 @@ test('should set up the edit expense action object', () => {
         }
     });
 });
+
+
+test('should edit expense from firebase', (done) => {
+    const store = createMockStore({});
+
+    const id = expenses[0].id;
+    const updates = { amount: 21045 };
+
+    store.dispatch(startEditExpense(id, updates)).then(() => {
+        const actions = store.getActions();
+
+        expect(actions[0]).toEqual({
+            type: 'EDIT_EXPENSE',
+            id,
+            updates
+        });
+
+        return database.ref(`expenses/${id}`).once('value');
+    }).then((snapshot) => {
+        expect(snapshot.val().amount).toBe(updates.amount);
+        done();
+    });
+});
+
 
 
 
@@ -142,6 +170,7 @@ test('should add expense with defaults to database and store', (done) => {
         done();
     });
 });
+
 
 
 
