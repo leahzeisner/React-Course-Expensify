@@ -1,6 +1,9 @@
 {
   "name": "expensify",
   "version": "1.0.0",
+  "engines": {
+    "node": "16.2.0"
+  },
   "main": "index.js",
   "author": "Leah Zeisner",
   "license": "MIT",
