@@ -12,8 +12,11 @@ export class EditExpensePage extends React.Component {
 
 
     onRemove = () => {
-        this.props.startRemoveExpense({ id: this.props.expense.id });
-        this.props.history.push("/");
+        const confirm = window.confirm('Are you sure you want to delete this expense?')
+        if (confirm) {
+            this.props.startRemoveExpense({ id: this.props.expense.id });
+            this.props.history.push("/");
+        }
     };
 
 
@@ -31,7 +34,7 @@ export class EditExpensePage extends React.Component {
                         expense={this.props.expense}
                         onSubmit={this.onSubmit}
                     />
-                    <button className="button button--secondary" onClick={this.onRemove}>Remove Expense</button>
+                    <button id="remove-button" className="button button--secondary" onClick={this.onRemove}>Remove Expense</button>
                 </div>
             </div>
         );
